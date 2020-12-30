@@ -3,7 +3,7 @@ import Web.View.Prelude
 
 import qualified Text.MMark as MMark
 
-data ShowView = ShowView { post :: Post }
+data ShowView = ShowView { post :: Include "comments" Post }
 
 instance View ShowView where
     html ShowView { .. } = [hsx|
@@ -18,7 +18,9 @@ instance View ShowView where
         <h3>{get #title post}</h3>
         <div>{get #body post |> renderMarkdown}</div>
 
-        <a href={NewCommentAction}>Add Comment</a>
+        <a href={NewCommentAction (get #id post)}>Add Comment</a>
+
+        <div>{forEach (get #comments post) renderComment}</div>
     |]
 
 renderMarkdown text =
@@ -27,3 +29,11 @@ renderMarkdown text =
       Right markdown -> MMark.render markdown 
                                      |> tshow
                                      |> preEscapedToHtml
+
+renderComment comment = [hsx|
+        <div class="mt-4 p-2 comment">
+            <h5>{get #author comment}</h5>
+            <p>{get #body comment}</p>
+            
+        </div>
+    |]

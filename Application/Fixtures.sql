@@ -23,3 +23,10 @@ INSERT INTO public.posts (id, title, body, created_at) VALUES ('3b26b4bd-45d0-45
 ALTER TABLE public.posts ENABLE TRIGGER ALL;
 
 
+ALTER TABLE public.comments DISABLE TRIGGER ALL;
+
+
+
+ALTER TABLE public.comments ENABLE TRIGGER ALL;
+
+
