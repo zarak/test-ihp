@@ -49,6 +49,7 @@ scripts = do
         <script src="/vendor/flatpickr.js"></script>
         <script src="/helpers.js"></script>
         <script src="/vendor/morphdom-umd.min.js"></script>
+        <script src="/app.js"></script>
     |]
     when isProduction [hsx|
         <script src="/prod.js"></script>
