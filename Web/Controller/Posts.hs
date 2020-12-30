@@ -36,7 +36,7 @@ instance Controller PostsController where
                 Right post -> do
                     post <- post |> updateRecord
                     setSuccessMessage "Post updated"
-                    redirectTo EditPostAction { .. }
+                    redirectTo PostsAction
 
     action CreatePostAction = do
         let post = newRecord @Post
@@ -63,7 +63,7 @@ buildPost post = post
 
 isMarkdown text =
     case MMark.parse "" text of
-      Left _ -> Failure "Something went wrong"
+      Left _ -> Failure "Please provide valid Markdown"
       Right _ -> Success
 
 

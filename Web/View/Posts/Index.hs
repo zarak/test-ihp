@@ -30,7 +30,7 @@ instance View IndexView where
 renderPost post = [hsx|
     <tr>
         <td>
-        <a href={ShowPostAction (get #id post)} data-toggle="popover" data-content={body post} data-trigger="hover">{title post}</a>
+        <a href={ShowPostAction (get #id post)} data-toggle="popover" data-content={get #body post} data-trigger="hover">{get #title post}</a>
         </td>
         <td><a href={EditPostAction (get #id post)} class="text-muted">Edit</a></td>
         <td><a href={DeletePostAction (get #id post)} class="js-delete text-muted">Delete</a></td>

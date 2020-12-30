@@ -16,7 +16,8 @@ SET SESSION AUTHORIZATION DEFAULT;
 
 ALTER TABLE public.posts DISABLE TRIGGER ALL;
 
-INSERT INTO public.posts (id, title, body, created_at) VALUES ('f49b296b-6bbe-49ae-819f-a084516b38f6', 'test', 'This is another test', '2020-12-30 15:16:06.06887+05');
+INSERT INTO public.posts (id, title, body, created_at) VALUES ('f49b296b-6bbe-49ae-819f-a084516b38f6', 'First ever post', 'This is another test for a much longer piece of text *bold* or **italic**. ', '2020-12-30 15:16:06.06887+05');
+INSERT INTO public.posts (id, title, body, created_at) VALUES ('3b26b4bd-45d0-45e9-8a7c-d492265de702', 'second post', 'hell naw ```code stuff```', '2020-12-30 16:11:10.19833+05');
 
 
 ALTER TABLE public.posts ENABLE TRIGGER ALL;

@@ -16,12 +16,14 @@ instance View ShowView where
         <h1>Show Post</h1>
         <p>{get #createdAt post |> timeAgo}</p>
         <h3>{get #title post}</h3>
-        <p>{get #body post |> renderMarkdown}</p>
+        <div>{get #body post |> renderMarkdown}</div>
+
+        <a href={NewCommentAction}>Add Comment</a>
     |]
 
 renderMarkdown text =
     case text |> MMark.parse "" of
-      Left _ -> "Can't parse markdown"
+      Left _ -> "Something went wrong"
       Right markdown -> MMark.render markdown 
                                      |> tshow
                                      |> preEscapedToHtml
