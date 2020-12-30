@@ -1,6 +1,8 @@
 module Web.View.Posts.Show where
 import Web.View.Prelude
 
+import qualified Text.MMark as MMark
+
 data ShowView = ShowView { post :: Post }
 
 instance View ShowView where
@@ -12,6 +14,14 @@ instance View ShowView where
             </ol>
         </nav>
         <h1>Show Post</h1>
-        <h3>{title post}</h3>
-        <p>{body post}</p>
+        <p>{get #createdAt post |> timeAgo}</p>
+        <h3>{get #title post}</h3>
+        <p>{get #body post |> renderMarkdown}</p>
     |]
+
+renderMarkdown text =
+    case text |> MMark.parse "" of
+      Left _ -> "Can't parse markdown"
+      Right markdown -> MMark.render markdown 
+                                     |> tshow
+                                     |> preEscapedToHtml
