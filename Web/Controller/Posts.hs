@@ -5,6 +5,7 @@ import Web.View.Posts.Index
 import Web.View.Posts.New
 import Web.View.Posts.Edit
 import Web.View.Posts.Show
+import IHP.LoginSupport.Helper.Controller
 
 import qualified Text.MMark as MMark
 
@@ -16,6 +17,7 @@ instance Controller PostsController where
         render IndexView { .. }
 
     action NewPostAction = do
+        ensureIsUser
         let post = newRecord
         render NewView { .. }
 
@@ -41,6 +43,7 @@ instance Controller PostsController where
                     redirectTo PostsAction
 
     action CreatePostAction = do
+        ensureIsUser
         let post = newRecord @Post
         post
             |> buildPost
