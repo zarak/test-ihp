@@ -10,37 +10,32 @@ instance View IndexView where
                 <li class="breadcrumb-item active"><a href={PostsAction}>Posts</a></li>
             </ol>
         </nav>
-        <h1>Index <a href={pathTo NewPostAction} class="btn btn-primary ml-4">+ New</a></h1>
+        <!--<h1>Index <a href={pathTo NewPostAction} class="btn btn-primary ml-4">+ New</a></h1>-->
         <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Posts</th>
-                        <th>Upvotes</th>
-                        <th>Downvotes</th>
-                        <th></th>
-                    </tr>
-                </thead>
                 <tbody>{forEach posts renderPost}</tbody>
-            </table>
         </div>
     |]
 
 
 renderPost post = [hsx|
-    <tr>
-        <td>
-        <!--<a href={ShowPostAction (get #id post)} data-toggle="popover" data-content={get #body post} data-trigger="hover">{get #title post}</a>-->
-        <div class="post m-auto">
-            <h5>{get #title post}</h5>
-            <p>
-                {get #body post}
-            </p>
-        </div>
-        </td>
-        <td>{get #upvotes post}</td>
-        <td>{get #downvotes post}</td>
-        <!--<td><a href={EditPostAction (get #id post)} class="text-muted">Edit</a></td>-->
-        <!--<td><a href={DeletePostAction (get #id post)} class="js-delete text-muted">Delete</a></td>-->
-    </tr>
+<div class="p-2 bg-gray-50 dark:bg-gray-900 flex items-center justify-center
+    w-full">
+  <div class="px-5 py-4 dark:bg-gray-800 shadow rounded-lg object-contain w-full">
+    <div class="flex mb-4">
+      <div class="ml-2 mt-0.5">
+        <span class="block font-medium text-base leading-snug text-black
+        dark:text-gray-100">Author Name</span>
+        <span class="block text-sm text-gray-500 dark:text-gray-400 font-light leading-snug">{get #createdAt post}</span>
+      </div>
+    </div>
+    <p class="text-gray-800 dark:text-gray-100 leading-snug
+    md:leading-normal">{get #body post}</p>
+    <div class="flex justify-between items-center mt-5">
+    <div class="flex ">
+      <span class="ml-1 text-gray-500 dark:text-gray-400  font-light">8</span>
+    </div>  
+    <div class="ml-1 text-gray-500 dark:text-gray-400 font-light">33 comments</div>
+    </div>
+  </div>
+</div>
 |]
