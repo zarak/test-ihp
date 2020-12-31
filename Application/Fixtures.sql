@@ -16,6 +16,7 @@ SET SESSION AUTHORIZATION DEFAULT;
 
 ALTER TABLE public.admins DISABLE TRIGGER ALL;
 
+INSERT INTO public.admins (id, email, password_hash, locked_at, failed_login_attempts) VALUES ('9d379d15-8d05-4d1c-a384-a88448f74392', 'admin@test.com', 'sha256|17|ouukE3gDzq4esMIG5HgvWw==|+JOYGaFhWN55zfqmHBOin9Gmzr0tCydRXjOfxLMG1vA=', NULL, 0);
 
 
 ALTER TABLE public.admins ENABLE TRIGGER ALL;
