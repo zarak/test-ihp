@@ -7,6 +7,8 @@ import Admin.View.Users.Edit
 import Admin.View.Users.Show
 
 instance Controller UsersController where
+    beforeAction = ensureIsAdmin @Admin
+
     action UsersAction = do
         users <- query @User |> fetch
         render IndexView { .. }

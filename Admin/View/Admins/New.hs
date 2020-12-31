@@ -5,20 +5,18 @@ data NewView = NewView { admin :: Admin }
 
 instance View NewView where
     html NewView { .. } = [hsx|
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={AdminsAction}>Admins</a></li>
-                <li class="breadcrumb-item active">New Admin</li>
-            </ol>
-        </nav>
-        <h1>New Admin</h1>
-        {renderForm admin}
+        <div class="w-50 mx-auto border p-5 shadow rounded">
+            <h1>Create new admin</h1>
+            {renderForm admin}
+        </div>
     |]
 
 renderForm :: Admin -> Html
 renderForm admin = formFor admin [hsx|
     {(textField #email)}
-    {(textField #passwordHash)}
-    {(textField #failedLoginAttempts)}
+    <div class="d-flex justify-content-between">
+        {(passwordField #passwordHash) { fieldLabel="Password" }} 
+        {(passwordField #passwordHash) { fieldName="password2", fieldLabel="Confirm Password" }}
+    </div>
     {submitButton}
 |]

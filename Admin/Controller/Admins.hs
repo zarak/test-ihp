@@ -7,6 +7,8 @@ import Admin.View.Admins.Edit
 import Admin.View.Admins.Show
 
 instance Controller AdminsController where
+    beforeAction = ensureIsAdmin @Admin
+
     action AdminsAction = do
         admins <- query @Admin |> fetch
         render IndexView { .. }
@@ -41,9 +43,12 @@ instance Controller AdminsController where
             |> ifValid \case
                 Left admin -> render NewView { .. } 
                 Right admin -> do
-                    admin <- admin |> createRecord
-                    setSuccessMessage "Admin created"
-                    redirectTo AdminsAction
+                    hashed <- hashPassword (get #passwordHash admin)
+                    admin <- admin 
+                        |> set #passwordHash hashed
+                        |> createRecord
+                    setSuccessMessage "You have registered successfully"
+                    redirectTo NewSessionAction
 
     action DeleteAdminAction { adminId } = do
         admin <- fetch adminId
@@ -53,3 +58,11 @@ instance Controller AdminsController where
 
 buildAdmin admin = admin
     |> fill @["email","passwordHash","failedLoginAttempts"]
+    |> validateField #email isEmail
+    |> validateField #passwordHash nonEmpty
+    |> validateField #passwordHash (hasMinLength 8)
+    |> validateField #passwordHash (passwordMatch (param "password2"))
+
+passwordMatch pw1 pw2 = if (pw1 == pw2)
+                           then Success
+                           else Failure "Password must match"
