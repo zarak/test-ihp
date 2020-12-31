@@ -15,9 +15,9 @@ instance View IndexView where
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Post</th>
-                        <th></th>
-                        <th></th>
+                        <th>Posts</th>
+                        <th>Upvotes</th>
+                        <th>Downvotes</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -30,9 +30,17 @@ instance View IndexView where
 renderPost post = [hsx|
     <tr>
         <td>
-        <a href={ShowPostAction (get #id post)} data-toggle="popover" data-content={get #body post} data-trigger="hover">{get #title post}</a>
+        <!--<a href={ShowPostAction (get #id post)} data-toggle="popover" data-content={get #body post} data-trigger="hover">{get #title post}</a>-->
+        <div class="post m-auto">
+            <h5>{get #title post}</h5>
+            <p>
+                {get #body post}
+            </p>
+        </div>
         </td>
-        <td><a href={EditPostAction (get #id post)} class="text-muted">Edit</a></td>
-        <td><a href={DeletePostAction (get #id post)} class="js-delete text-muted">Delete</a></td>
+        <td>{get #upvotes post}</td>
+        <td>{get #downvotes post}</td>
+        <!--<td><a href={EditPostAction (get #id post)} class="text-muted">Edit</a></td>-->
+        <!--<td><a href={DeletePostAction (get #id post)} class="js-delete text-muted">Delete</a></td>-->
     </tr>
 |]

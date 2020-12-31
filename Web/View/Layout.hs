@@ -35,7 +35,7 @@ defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
 navbar :: Html
 navbar = [hsx|
 <nav class="navbar navbar-light bg-light navbar-expand-lg">
-    <a class="navbar-brand" href="/">Blog</a>
+    <a class="navbar-brand" href="/">Callout Bot</a>
     <ul class="navbar-nav mr-auto">
         <li class={classes ["nav-item", ("active", isActivePath ("/Posts" :: Text))]}>
             <a class="nav-link" href={PostsAction}>Posts</a>
