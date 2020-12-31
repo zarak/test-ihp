@@ -25,6 +25,7 @@ instance Controller PostsController where
         post <- fetch postId
             >>= pure . modify #comments (orderByDesc #createdAt)
             >>= fetchRelated #comments
+        author <- fetch (get #userId post)
         render ShowView { .. }
 
     action EditPostAction { postId } = do
@@ -50,7 +51,9 @@ instance Controller PostsController where
             |> ifValid \case
                 Left post -> render NewView { .. } 
                 Right post -> do
-                    post <- post |> createRecord
+                    post <- post 
+                        |> set #userId currentUserId
+                        |> createRecord
                     setSuccessMessage "Post created"
                     redirectTo PostsAction
 
