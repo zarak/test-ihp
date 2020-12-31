@@ -8,8 +8,10 @@ import Generated.Types
 import IHP.Controller.RequestContext
 import Web.Types
 import Web.Routes
+
 import Application.Helper.View
 import IHP.LoginSupport.Helper.View (currentUserOrNothing)
+import Generated.Types
 
 defaultLayout :: Html -> Html
 defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
@@ -47,13 +49,14 @@ navbar = [hsx|
 |]
     --where userSessionButton = logoutButtonHtml
     where userSessionButton = case currentUserOrNothing of 
-                                Just _ -> logoutButtonHtml
+                                Just user -> logoutButtonHtml user
                                 Nothing -> loginButtonHtml
 
 
-logoutButtonHtml :: Html
-logoutButtonHtml = [hsx|
-    <a class="btn btn-outline-primary mr-0 ml-auto js-delete js-delete-no-confirm"
+logoutButtonHtml :: User -> Html
+logoutButtonHtml user = [hsx|
+    <a class="ml-auto mr-3" href={ShowUserAction (get #id user)}>Welcome, {get #firstName user}</a>
+    <a class="btn btn-outline-primary mr-0 js-delete js-delete-no-confirm"
        href={DeleteSessionAction}>Logout</a>
 |]
 

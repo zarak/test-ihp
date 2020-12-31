@@ -5,14 +5,10 @@ data NewView = NewView { user :: User }
 
 instance View NewView where
     html NewView { .. } = [hsx|
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={UsersAction}>Users</a></li>
-                <li class="breadcrumb-item active">New User</li>
-            </ol>
-        </nav>
-        <h1>New User</h1>
-        {renderForm user}
+        <div class="w-50 mx-auto border p-5 shadow rounded">
+            <h1>Sign Up</h1>
+            {renderForm user}
+        </div>
     |]
 
 renderForm :: User -> Html
@@ -20,8 +16,9 @@ renderForm user = formFor user [hsx|
     {(textField #firstName)}
     {(textField #lastName)}
     {(textField #email)}
-    {(passwordField #passwordHash) { fieldLabel="Password" }}
-    {(passwordField #passwordHash) { fieldName="password2", fieldLabel="Confirm Password" }}
-    {(textField #failedLoginAttempts)}
-    {submitButton}
+    <div class="d-flex justify-content-between">
+        {(passwordField #passwordHash) { fieldLabel="Password" }}
+        {(passwordField #passwordHash) { fieldName="password2", fieldLabel="Confirm Password" }}
+    </div>
+    {submitButton {label="Sign Up"}}
 |]

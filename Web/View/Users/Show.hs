@@ -8,9 +8,11 @@ instance View ShowView where
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href={UsersAction}>Users</a></li>
-                <li class="breadcrumb-item active">Show User</li>
+                <li class="breadcrumb-item active">User Profile</li>
             </ol>
         </nav>
         <h1>Show User</h1>
-        <p>{user}</p>
+        <p>First name: {get #firstName user}</p>
+        <p>Last name: {get #lastName user}</p>
+        <p>Email: {get #email user}</p>
     |]

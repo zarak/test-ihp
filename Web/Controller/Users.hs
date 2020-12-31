@@ -6,6 +6,8 @@ import Web.View.Users.New
 import Web.View.Users.Edit
 import Web.View.Users.Show
 import IHP.AuthSupport.Authentication
+import IHP.AuthSupport.Authorization
+import IHP.LoginSupport.Helper.Controller
 
 instance Controller UsersController where
     action UsersAction = do
@@ -17,6 +19,7 @@ instance Controller UsersController where
         render NewView { .. }
 
     action ShowUserAction { userId } = do
+        accessDeniedUnless (currentUserId == userId)
         user <- fetch userId
         render ShowView { .. }
 
@@ -57,5 +60,13 @@ instance Controller UsersController where
 
 buildUser user = user
     |> fill @["firstName","lastName","email","passwordHash","failedLoginAttempts"]
+    |> validateField #firstName nonEmpty
+    |> validateField #lastName nonEmpty
     |> validateField #email isEmail
     |> validateField #passwordHash nonEmpty
+    |> validateField #passwordHash (hasMinLength 8)
+    |> validateField #passwordHash (passwordMatch (param "password2"))
+
+passwordMatch pw1 pw2 = if pw1 == pw2
+                           then Success
+                           else Failure "The passwords don't match"

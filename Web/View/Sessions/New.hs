@@ -5,17 +5,11 @@ import IHP.AuthSupport.View.Sessions.New
 
 instance View (NewView User) where
     html NewView { .. } = [hsx|
-<div id="sessions-new" class="h-100">
-    <div class="d-flex align-items-center">
-        <div class="w-100">
-            <div class="mx-auto mb-5" style="max-width: 400px">
+            <div class="w-50 mx-auto border p-5 shadow rounded">
                 {renderFlashMessages}
-                <h5>Please login:</h5>
+                <h5>Login:</h5>
                 {renderForm user}
             </div>
-        </div>
-    </div>
-</div>
 |]
 
 renderForm :: User -> Html
