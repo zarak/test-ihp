@@ -31,9 +31,11 @@ renderMarkdown text =
                                      |> preEscapedToHtml
 
 renderComment comment = [hsx|
-        <div class="mt-4 p-2 comment">
+        <div class="mt-4 p-2 border shadow bg-light">
             <h5>{get #author comment}</h5>
             <p>{get #body comment}</p>
             
+            <a class="text-secondary mr-2" href={EditCommentAction (get #id comment)}>Edit</a>
+            <a class="text-secondary js-delete" href={DeleteCommentAction (get #id comment)}>Delete</a>
         </div>
     |]

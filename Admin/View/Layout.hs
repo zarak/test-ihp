@@ -1,4 +1,4 @@
-module Web.View.Layout (defaultLayout, Html) where
+module Admin.View.Layout (defaultLayout, Html) where
 
 import IHP.ViewPrelude
 import IHP.Environment
@@ -6,10 +6,8 @@ import qualified Text.Blaze.Html5            as H
 import qualified Text.Blaze.Html5.Attributes as A
 import Generated.Types
 import IHP.Controller.RequestContext
-import Web.Types
-import Web.Routes
-import Application.Helper.View
-import IHP.LoginSupport.Helper.View (currentUserOrNothing)
+import Admin.Types
+import Admin.Routes
 
 defaultLayout :: Html -> Html
 defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
@@ -22,45 +20,11 @@ defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
     <title>App</title>
 </head>
 <body>
-    {navbar}
     <div class="container mt-4">
         {renderFlashMessages}
         {inner}
     </div>
 </body>
-|]
-
-navbar :: Html
-navbar = [hsx|
-<nav class="navbar navbar-light bg-light navbar-expand-lg">
-    <a class="navbar-brand" href="/">Blog</a>
-    <ul class="navbar-nav mr-auto">
-        <li class={classes ["nav-item", ("active", isActivePath ("/Posts" :: Text))]}>
-            <a class="nav-link" href={PostsAction}>Posts</a>
-        </li>
-        <li class={classes ["nav-item", ("active", isActivePath ("/NewPost" :: Text))]}>
-            <a class="nav-link" href={NewPostAction}>New Post</a>
-        </li>
-    </ul>
-    {userSessionButton}
-</nav>    
-|]
-    --where userSessionButton = logoutButtonHtml
-    where userSessionButton = case currentUserOrNothing of 
-                                Just _ -> logoutButtonHtml
-                                Nothing -> loginButtonHtml
-
-
-logoutButtonHtml :: Html
-logoutButtonHtml = [hsx|
-    <a class="btn btn-outline-primary mr-0 ml-auto js-delete js-delete-no-confirm"
-       href={DeleteSessionAction}>Logout</a>
-|]
-
-loginButtonHtml :: Html
-loginButtonHtml = [hsx|
-    <a class="mr-3 ml-auto" href={NewUserAction}>Sign Up</a>
-    <a class="btn btn-primary mr-0" href={NewSessionAction}>Login</a>
 |]
 
 stylesheets :: Html
@@ -85,7 +49,6 @@ scripts = do
         <script src="/vendor/flatpickr.js"></script>
         <script src="/helpers.js"></script>
         <script src="/vendor/morphdom-umd.min.js"></script>
-        <script src="/app.js"></script>
     |]
     when isProduction [hsx|
         <script src="/prod.js"></script>
