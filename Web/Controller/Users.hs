@@ -47,16 +47,41 @@ instance Controller UsersController where
                 Left user -> render NewView { .. } 
                 Right user -> do
                     hashed <- hashPassword (get #passwordHash user)
+                    let token = tshow "thisisatesttoken"
                     user <- user 
                         |> set #passwordHash hashed
+                        |> set #token token
                         |> createRecord
-                    setSuccessMessage "You have registered successfully"
+                    sendMail ConfirmMail { user }
+                    setSuccessMessage "Please click the confirmation link in the email that has been sent to you"
                     redirectTo NewSessionAction
 
     action DeleteUserAction { userId } = do
         user <- fetch userId
         deleteRecord user
         setSuccessMessage "User deleted"
+        redirectTo UsersAction
+
+    action VerifyUserAction = do
+        let token = param @Text "token"
+        user <- query @User
+            |> filterWhere (#token, token)
+            |> fetchOneOrNothing
+
+        case user of
+            Nothing -> do
+                setErrorMessage "Invalid Token"
+            Just user -> do
+                case get #isConfirmed user of
+                    True -> do
+                        setErrorMessage "Email is already confirmed"
+                    False -> do
+                        user
+                            |> set #isConfirmed True
+                            |> updateRecord
+                        setSuccessMessage "Your email has been confirmed!"
+
+            
         redirectTo UsersAction
 
 buildUser user = user

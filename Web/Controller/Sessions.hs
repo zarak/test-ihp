@@ -11,3 +11,7 @@ instance Controller SessionsController where
 
 instance Sessions.SessionsControllerConfig User where
     afterLoginRedirectPath = "/"
+    --beforeLogin user = do
+        --unless (get #isConfirmed user) do
+            --setErrorMessage "Please verify your email first by clicking the link just sent to you."
+            --redirectTo NewSessionAction

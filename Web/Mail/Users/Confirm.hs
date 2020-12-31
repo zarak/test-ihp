@@ -5,9 +5,10 @@ import IHP.MailPrelude
 data ConfirmMail = ConfirmMail { user :: User }
 
 instance BuildMail ConfirmMail where
-    subject = "Subject"
-    to ConfirmMail { .. } = Address { addressName = Just "Firstname Lastname", addressEmail = "fname.lname@example.com" }
+    subject = "Confirm your E-mail Address"
+    to ConfirmMail { .. } = Address { addressName = Just (get #firstName user), addressEmail = (get #email user) }
     from = "hi@example.com"
     html ConfirmMail { .. } = [hsx|
-        Hello World
-    |]
+        To verify your E-Mail, just click link: {link}
+    |] 
+        where link = "https://localhost:8000" <> pathTo VerifyUserAction <> "?token=" <> get #token user

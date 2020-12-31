@@ -14,6 +14,30 @@ SET row_security = off;
 
 SET SESSION AUTHORIZATION DEFAULT;
 
+ALTER TABLE public.admins DISABLE TRIGGER ALL;
+
+
+
+ALTER TABLE public.admins ENABLE TRIGGER ALL;
+
+
+ALTER TABLE public.users DISABLE TRIGGER ALL;
+
+INSERT INTO public.users (id, first_name, last_name, email, password_hash, locked_at, failed_login_attempts, is_confirmed, token) VALUES ('5c15af53-bff4-4136-b95e-04348b33dd7a', 'Test', 'User', 'test@testmail.com', 'sha256|17|iF2CoCnirCChcrQY89/GXQ==|1Fg60yEZKFZJmZORUPVSuJElWlUCQx9SDLK0gsGpB4A=', NULL, 0, true, '');
+
+
+ALTER TABLE public.users ENABLE TRIGGER ALL;
+
+
+ALTER TABLE public.posts DISABLE TRIGGER ALL;
+
+INSERT INTO public.posts (id, title, body, created_at, user_id) VALUES ('1df99d90-5392-4c6b-bb9a-ec42ec76a353', 'what ho', 'A new post egads', '2020-12-31 16:50:03.692572+05', '5c15af53-bff4-4136-b95e-04348b33dd7a');
+INSERT INTO public.posts (id, title, body, created_at, user_id) VALUES ('c56e80fd-aff1-4614-81c1-bdfbb5db80ac', 'Second post', 'This is the best second post ever', '2020-12-31 17:11:41.395169+05', '5c15af53-bff4-4136-b95e-04348b33dd7a');
+
+
+ALTER TABLE public.posts ENABLE TRIGGER ALL;
+
+
 ALTER TABLE public.comments DISABLE TRIGGER ALL;
 
 INSERT INTO public.comments (id, post_id, author, body, created_at) VALUES ('4bbf0392-3b68-4d27-a37a-10c945024a0a', '3b26b4bd-45d0-45e9-8a7c-d492265de702', 'Tony', 'New comment', '2020-12-30 17:24:06.844777+05');
@@ -23,14 +47,5 @@ INSERT INTO public.comments (id, post_id, author, body, created_at) VALUES ('bb5
 
 
 ALTER TABLE public.comments ENABLE TRIGGER ALL;
-
-
-ALTER TABLE public.users DISABLE TRIGGER ALL;
-
-INSERT INTO public.users (id, first_name, last_name, email, password_hash, locked_at, failed_login_attempts) VALUES ('3c96258a-4a79-45b3-8e08-a3496ddf2524', 'test', 'user', 'test@testmail.com', 'sha256|17|8KpuZ7PFPsJhBujAIEahQQ==|QI4zv+QXpzChyYsLrvmn4tNbKRDK2yV4syJvTT/E9Fs=', NULL, 0);
-INSERT INTO public.users (id, first_name, last_name, email, password_hash, locked_at, failed_login_attempts) VALUES ('3af41507-24db-4e9e-b4b1-35dadc348c0a', 'Another', 'User', 'another@user.com', 'sha256|17|V0quBg/TOZtkXmTcWCTyHg==|x2kwE+b7NkNOqy30l+uz85rZ7ujpj+D7llRFlXISxuE=', NULL, 0);
-
-
-ALTER TABLE public.users ENABLE TRIGGER ALL;
 
 

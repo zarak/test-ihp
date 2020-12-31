@@ -18,6 +18,9 @@ instance Controller PostsController where
 
     action NewPostAction = do
         ensureIsUser
+        when (not (get #isConfirmed currentUser)) do
+            setErrorMessage "You need to confirm your email before posting"
+            redirectTo PostsAction
         let post = newRecord
         render NewView { .. }
 

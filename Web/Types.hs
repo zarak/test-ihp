@@ -48,4 +48,5 @@ data UsersController
     | EditUserAction { userId :: !(Id User) }
     | UpdateUserAction { userId :: !(Id User) }
     | DeleteUserAction { userId :: !(Id User) }
+    | VerifyUserAction
     deriving (Eq, Show, Data)
