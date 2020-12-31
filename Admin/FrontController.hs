@@ -5,6 +5,7 @@ import Admin.Controller.Prelude
 import Admin.View.Layout (defaultLayout)
 
 -- Controller Imports
+import Admin.Controller.Users
 import Admin.Controller.Admins
 import Admin.Controller.Static
 
@@ -16,6 +17,7 @@ instance FrontController AdminApplication where
         [ startPage AdminsAction
         , parseRoute @SessionsController
         -- Generator Marker
+        , parseRoute @UsersController
         , parseRoute @AdminsController
         ]
 

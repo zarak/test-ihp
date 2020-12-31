@@ -28,3 +28,13 @@ data AdminsController
     | UpdateAdminAction { adminId :: !(Id Admin) }
     | DeleteAdminAction { adminId :: !(Id Admin) }
     deriving (Eq, Show, Data)
+
+data UsersController
+    = UsersAction
+    | NewUserAction
+    | ShowUserAction { userId :: !(Id User) }
+    | CreateUserAction
+    | EditUserAction { userId :: !(Id User) }
+    | UpdateUserAction { userId :: !(Id User) }
+    | DeleteUserAction { userId :: !(Id User) }
+    deriving (Eq, Show, Data)

@@ -9,6 +9,9 @@ import IHP.Controller.RequestContext
 import Admin.Types
 import Admin.Routes
 
+import Application.Helper.View
+import IHP.LoginSupport.Helper.Controller (currentAdminOrNothing)
+
 defaultLayout :: Html -> Html
 defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
 <head>
@@ -20,11 +23,40 @@ defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
     <title>App</title>
 </head>
 <body>
+    {navbar}
     <div class="container mt-4">
         {renderFlashMessages}
         {inner}
     </div>
 </body>
+|]
+
+navbar :: Html
+navbar = [hsx|
+<nav class="navbar navbar-light bg-light navbar-expand-lg">
+    <a class="navbar-brand" href={UsersAction}>Blog</a>
+    <ul class="navbar-nav mr-auto">
+    </ul>
+    {adminSessionButton}
+</nav>    
+|]
+    --where userSessionButton = logoutButtonHtml
+    where adminSessionButton = case currentAdminOrNothing of 
+                                Just admin -> logoutButtonHtml admin
+                                Nothing -> loginButtonHtml
+
+
+logoutButtonHtml :: Admin -> Html
+logoutButtonHtml user = [hsx|
+    <a class="ml-auto mr-3" href={ShowAdminAction (get #id user)}>Welcome</a>
+    <a class="btn btn-outline-primary mr-0 js-delete js-delete-no-confirm"
+       href={DeleteSessionAction}>Logout</a>
+|]
+
+loginButtonHtml :: Html
+loginButtonHtml = [hsx|
+    <a class="mr-3 ml-auto" href={NewAdminAction}>Sign Up</a>
+    <a class="btn btn-primary mr-0" href={NewSessionAction}>Login</a>
 |]
 
 stylesheets :: Html
