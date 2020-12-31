@@ -8,6 +8,7 @@ import Web.View.Users.Show
 import IHP.AuthSupport.Authentication
 import IHP.AuthSupport.Authorization
 import IHP.LoginSupport.Helper.Controller
+import Web.Mail.Users.Confirm
 
 instance Controller UsersController where
     action UsersAction = do
