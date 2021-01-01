@@ -11,12 +11,20 @@ instance Controller VotesController where
         votes <- query @Vote |> fetch
         render IndexView { .. }
 
-    action NewVoteAction { postId, userId }= do
-        vote <- newRecord @Vote
-                |> set #postId postId 
-                |> set #userId userId
-                |> createRecord
-        redirectTo ShowPostAction { postId }
+    action NewVoteAction { postId, userId } = do
+        existingVote <- query @Vote
+            |> filterWhere (#userId, userId)
+            |> fetchOneOrNothing
+        case existingVote of
+            Nothing -> do
+                vote <- newRecord @Vote 
+                        |> set #postId postId 
+                        |> set #userId userId 
+                        |> createRecord
+                redirectTo ShowPostAction { postId }
+            Just _ -> do
+                setErrorMessage "You have already voted"
+                redirectTo ShowPostAction { postId }
 
     action ShowVoteAction { voteId } = do
         vote <- fetch voteId
@@ -37,17 +45,7 @@ instance Controller VotesController where
                     setSuccessMessage "Vote updated"
                     redirectTo EditVoteAction { .. }
 
-    action CreateVoteAction { postId, userId }= do
-        let vote = newRecord @Vote
-        vote
-            |> buildVote
-            |> ifValid \case
-                Left vote -> render NewView { .. } 
-                Right vote -> do
-                    vote <- vote 
-                        |> createRecord
-                    setSuccessMessage "Vote created"
-                    redirectTo ShowPostAction { postId }
+    action CreateVoteAction = renderNotFound
 
     action DeleteVoteAction { voteId } = do
         vote <- fetch voteId
