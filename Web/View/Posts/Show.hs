@@ -20,9 +20,7 @@ instance View ShowView where
         <p>Author: {get #firstName author <> " " <> get #lastName author}</p>
         <p>{get #createdAt post |> timeAgo}</p>
 
-        <span class="text-green-500">
-            <a href={NewVoteAction (get #id post) (get #id currentUser)}>Upvote</a>
-        </span>
+        {renderUpvote post}
 
         <div>{get #body post |> renderMarkdown}</div>
 
@@ -30,6 +28,10 @@ instance View ShowView where
 
         <div>{forEach (get #comments post) renderComment}</div>
     |]
+        where renderUpvote post =
+                case currentUserOrNothing of 
+                  Nothing -> "Upvoting disabled unless logged in" 
+                  Just _ -> renderUpvoteHtml post
 
 renderMarkdown text =
     case text |> MMark.parse "" of
@@ -46,4 +48,10 @@ renderComment comment = [hsx|
             <a class="text-secondary mr-2" href={EditCommentAction (get #id comment)}>Edit</a>
             <a class="text-secondary js-delete" href={DeleteCommentAction (get #id comment)}>Delete</a>
         </div>
+    |]
+
+renderUpvoteHtml post = [hsx|
+        <span class="text-green-500">
+            <a href={NewVoteAction (get #id post) (get #id currentUser)}>Upvote</a>
+        </span>
     |]
