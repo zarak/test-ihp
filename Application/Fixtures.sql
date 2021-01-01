@@ -33,10 +33,6 @@ ALTER TABLE public.users ENABLE TRIGGER ALL;
 
 ALTER TABLE public.posts DISABLE TRIGGER ALL;
 
-INSERT INTO public.posts (id, title, body, created_at, user_id, upvotes, downvotes, toxicity_score) VALUES ('1df99d90-5392-4c6b-bb9a-ec42ec76a353', 'what ho', 'A new post egads', '2020-12-31 16:50:03.692572+05', '5c15af53-bff4-4136-b95e-04348b33dd7a', 0, 0, 0);
-INSERT INTO public.posts (id, title, body, created_at, user_id, upvotes, downvotes, toxicity_score) VALUES ('c56e80fd-aff1-4614-81c1-bdfbb5db80ac', 'Second post', 'This is the best second post ever', '2020-12-31 17:11:41.395169+05', '5c15af53-bff4-4136-b95e-04348b33dd7a', 0, 0, 0);
-INSERT INTO public.posts (id, title, body, created_at, user_id, upvotes, downvotes, toxicity_score) VALUES ('de8f7afb-c00b-4d74-b4be-e1f608d19124', 'just another day', 'Tailwind CSS is a utility-first framework that''s a little different than CSS frameworks like Bootstrap or Bulma. We are going to build a Tailwind landing page so we can learn how quickly we can create designs for our sites.
-', '2021-01-01 09:03:24.043757+05', '5c15af53-bff4-4136-b95e-04348b33dd7a', 0, 0, 0);
 
 
 ALTER TABLE public.posts ENABLE TRIGGER ALL;

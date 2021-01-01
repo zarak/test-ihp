@@ -14,7 +14,3 @@ instance AutoRoute CommentsController
 
 
 instance AutoRoute UsersController
-
-
-instance AutoRoute VotesController
-
