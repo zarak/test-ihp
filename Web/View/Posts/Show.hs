@@ -21,7 +21,7 @@ instance View ShowView where
         <p>{get #createdAt post |> timeAgo}</p>
 
         <span class="text-green-500">
-            <a href={NewVoteAction}>Upvote</a>
+            <a href={NewVoteAction (get #id post) (get #id currentUser)}>Upvote</a>
         </span>
 
         <div>{get #body post |> renderMarkdown}</div>

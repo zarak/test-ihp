@@ -11,7 +11,7 @@ instance Controller VotesController where
         votes <- query @Vote |> fetch
         render IndexView { .. }
 
-    action NewVoteAction = do
+    action NewVoteAction { postId, userId }= do
         let vote = newRecord
         render NewView { .. }
 
