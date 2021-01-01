@@ -14,6 +14,7 @@ instance Controller VotesController where
     action NewVoteAction { postId, userId } = do
         existingVote <- query @Vote
             |> filterWhere (#userId, userId)
+            |> filterWhere (#postId, postId)
             |> fetchOneOrNothing
         case existingVote of
             Nothing -> do
@@ -21,6 +22,7 @@ instance Controller VotesController where
                         |> set #postId postId 
                         |> set #userId userId 
                         |> createRecord
+                setSuccessMessage "Thanks for your vote"
                 redirectTo ShowPostAction { postId }
             Just _ -> do
                 setErrorMessage "You have already voted"
