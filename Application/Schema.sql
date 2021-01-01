@@ -6,7 +6,8 @@ CREATE TABLE posts (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
     user_id UUID DEFAULT '00000000-0000-0000-0000-000000000000' NOT NULL,
     upvotes INT DEFAULT 0 NOT NULL,
-    downvotes INT DEFAULT 0 NOT NULL
+    downvotes INT DEFAULT 0 NOT NULL,
+    toxicity_score REAL DEFAULT 0 NOT NULL
 );
 CREATE TABLE comments (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
@@ -33,5 +34,14 @@ CREATE TABLE admins (
     locked_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,
     failed_login_attempts INT DEFAULT 0 NOT NULL
 );
+CREATE TABLE votes (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
+    user_id UUID NOT NULL,
+    post_id UUID NOT NULL,
+    is_upvote BOOLEAN DEFAULT false NOT NULL,
+    value BOOLEAN DEFAULT false NOT NULL
+);
 ALTER TABLE comments ADD CONSTRAINT comments_ref_post_id FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE NO ACTION;
 ALTER TABLE posts ADD CONSTRAINT posts_ref_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE NO ACTION;
+ALTER TABLE votes ADD CONSTRAINT votes_ref_post_id FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE NO ACTION;
+ALTER TABLE votes ADD CONSTRAINT votes_ref_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE NO ACTION;
