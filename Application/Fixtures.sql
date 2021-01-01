@@ -36,6 +36,7 @@ ALTER TABLE public.posts DISABLE TRIGGER ALL;
 INSERT INTO public.posts (id, title, body, created_at, user_id, upvotes, downvotes, toxicity_score) VALUES ('c06bb0e4-4dc5-4494-9d47-367702be1060', 'well', 'this is a new post
 ', '2021-01-01 12:37:51.857428+05', '5c15af53-bff4-4136-b95e-04348b33dd7a', 0, 0, 0);
 INSERT INTO public.posts (id, title, body, created_at, user_id, upvotes, downvotes, toxicity_score) VALUES ('5602bbdb-a7f8-406c-aaf2-72930a05ce69', 'lovely', 'This is a wonderful new post innit', '2021-01-01 15:45:11.994588+05', '5c15af53-bff4-4136-b95e-04348b33dd7a', 0, 0, 0);
+INSERT INTO public.posts (id, title, body, created_at, user_id, upvotes, downvotes, toxicity_score) VALUES ('c74eb894-1668-45b5-87cf-d9ebb79e132d', 'test', 'test test test', '2021-01-01 17:20:40.753364+05', '5c15af53-bff4-4136-b95e-04348b33dd7a', 0, 0, 0);
 
 
 ALTER TABLE public.posts ENABLE TRIGGER ALL;
@@ -55,8 +56,8 @@ ALTER TABLE public.comments ENABLE TRIGGER ALL;
 
 ALTER TABLE public.votes DISABLE TRIGGER ALL;
 
-INSERT INTO public.votes (id, user_id, post_id) VALUES ('7291ff72-cc12-49c4-97ed-fab40c66e1ce', '5c15af53-bff4-4136-b95e-04348b33dd7a', '5602bbdb-a7f8-406c-aaf2-72930a05ce69');
-INSERT INTO public.votes (id, user_id, post_id) VALUES ('a9ecdbbf-4624-4c77-aaf8-1ee1ddeea4fb', '5c15af53-bff4-4136-b95e-04348b33dd7a', '5602bbdb-a7f8-406c-aaf2-72930a05ce69');
+INSERT INTO public.votes (id, user_id, post_id) VALUES ('74464092-1f23-4b3f-9ca1-fab24493c1c3', '5c15af53-bff4-4136-b95e-04348b33dd7a', 'c74eb894-1668-45b5-87cf-d9ebb79e132d');
+INSERT INTO public.votes (id, user_id, post_id) VALUES ('6bc173b9-06fb-4bc1-9bc4-07de7c7f49df', '5c15af53-bff4-4136-b95e-04348b33dd7a', '5602bbdb-a7f8-406c-aaf2-72930a05ce69');
 
 
 ALTER TABLE public.votes ENABLE TRIGGER ALL;
