@@ -23,7 +23,7 @@ defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
 </head>
 <body>
     {navbar}
-    <div class="container mt-4">
+    <div class="container mt-4 mx-auto">
         {renderFlashMessages}
         {inner}
     </div>
