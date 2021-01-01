@@ -3,7 +3,10 @@ import Web.View.Prelude
 
 import qualified Text.MMark as MMark
 
-data ShowView = ShowView { post :: Include "comments" Post, author :: User }
+data ShowView = ShowView 
+    { post :: Include "comments" Post 
+    , author :: User 
+    }
 
 instance View ShowView where
     html ShowView { .. } = [hsx|

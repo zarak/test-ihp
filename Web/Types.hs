@@ -50,3 +50,13 @@ data UsersController
     | DeleteUserAction { userId :: !(Id User) }
     | VerifyUserAction
     deriving (Eq, Show, Data)
+
+data VotesController
+    = VotesAction
+    | NewVoteAction
+    | ShowVoteAction { voteId :: !(Id Vote) }
+    | CreateVoteAction
+    | EditVoteAction { voteId :: !(Id Vote) }
+    | UpdateVoteAction { voteId :: !(Id Vote) }
+    | DeleteVoteAction { voteId :: !(Id Vote) }
+    deriving (Eq, Show, Data)

@@ -33,6 +33,8 @@ ALTER TABLE public.users ENABLE TRIGGER ALL;
 
 ALTER TABLE public.posts DISABLE TRIGGER ALL;
 
+INSERT INTO public.posts (id, title, body, created_at, user_id, upvotes, downvotes, toxicity_score) VALUES ('c06bb0e4-4dc5-4494-9d47-367702be1060', 'well', 'this is a new post
+', '2021-01-01 12:37:51.857428+05', '5c15af53-bff4-4136-b95e-04348b33dd7a', 0, 0, 0);
 
 
 ALTER TABLE public.posts ENABLE TRIGGER ALL;
@@ -48,5 +50,12 @@ INSERT INTO public.comments (id, post_id, author, body, created_at) VALUES ('a55
 
 
 ALTER TABLE public.comments ENABLE TRIGGER ALL;
+
+
+ALTER TABLE public.votes DISABLE TRIGGER ALL;
+
+
+
+ALTER TABLE public.votes ENABLE TRIGGER ALL;
 
 
