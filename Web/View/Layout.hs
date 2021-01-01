@@ -10,8 +10,6 @@ import Web.Types
 import Web.Routes
 
 import Application.Helper.View
-import IHP.LoginSupport.Helper.View (currentUserOrNothing)
-import Generated.Types
 
 defaultLayout :: Html -> Html
 defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
