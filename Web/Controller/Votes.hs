@@ -12,8 +12,11 @@ instance Controller VotesController where
         render IndexView { .. }
 
     action NewVoteAction { postId, userId }= do
-        let vote = newRecord
-        render NewView { .. }
+        vote <- newRecord @Vote
+                |> set #postId postId 
+                |> set #userId userId
+                |> createRecord
+        redirectTo ShowPostAction { postId }
 
     action ShowVoteAction { voteId } = do
         vote <- fetch voteId
@@ -34,16 +37,17 @@ instance Controller VotesController where
                     setSuccessMessage "Vote updated"
                     redirectTo EditVoteAction { .. }
 
-    action CreateVoteAction = do
+    action CreateVoteAction { postId, userId }= do
         let vote = newRecord @Vote
         vote
             |> buildVote
             |> ifValid \case
                 Left vote -> render NewView { .. } 
                 Right vote -> do
-                    vote <- vote |> createRecord
+                    vote <- vote 
+                        |> createRecord
                     setSuccessMessage "Vote created"
-                    redirectTo VotesAction
+                    redirectTo ShowPostAction { postId }
 
     action DeleteVoteAction { voteId } = do
         vote <- fetch voteId

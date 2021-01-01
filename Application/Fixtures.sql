@@ -55,6 +55,8 @@ ALTER TABLE public.comments ENABLE TRIGGER ALL;
 
 ALTER TABLE public.votes DISABLE TRIGGER ALL;
 
+INSERT INTO public.votes (id, user_id, post_id) VALUES ('7291ff72-cc12-49c4-97ed-fab40c66e1ce', '5c15af53-bff4-4136-b95e-04348b33dd7a', '5602bbdb-a7f8-406c-aaf2-72930a05ce69');
+INSERT INTO public.votes (id, user_id, post_id) VALUES ('a9ecdbbf-4624-4c77-aaf8-1ee1ddeea4fb', '5c15af53-bff4-4136-b95e-04348b33dd7a', '5602bbdb-a7f8-406c-aaf2-72930a05ce69');
 
 
 ALTER TABLE public.votes ENABLE TRIGGER ALL;
