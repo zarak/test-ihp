@@ -22,7 +22,7 @@ instance Controller VotesController where
                         |> set #postId postId 
                         |> set #userId userId 
                         |> createRecord
-                setSuccessMessage "Thanks for your vote"
+                setSuccessMessage "Thanks for voting!"
                 redirectTo ShowPostAction { postId }
             Just _ -> do
                 setErrorMessage "You have already voted"
