@@ -32,17 +32,30 @@ defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
 
 navbar :: Html
 navbar = [hsx|
-<nav class="navbar navbar-light bg-light navbar-expand-lg">
-    <a class="navbar-brand" href="/">Callout Bot</a>
-    <ul class="navbar-nav mr-auto">
-        <li class={classes ["nav-item", ("active", isActivePath ("/Posts" :: Text))]}>
-            <a class="nav-link" href={PostsAction}>Posts</a>
-        </li>
-        <li class={classes ["nav-item", ("active", isActivePath ("/NewPost" :: Text))]}>
-            <a class="nav-link" href={NewPostAction}>New Post</a>
-        </li>
-    </ul>
-    {userSessionButton}
+<nav class="bg-gray-700 p-4 flex justify-between items-center">
+    <!--left side-->
+    <div class="flex items-center">
+        <img
+        src="https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/twitter2512x512.png"
+        alt="logo" width="50" class="mr-2"/>
+        
+        <a class="inline-block p-3 text-red-50 hover:text-red-400 transition ease-in duration-150" href="/">Callout Bot</a>
+        <a class="inline-block p-3 text-red-50 hover:text-red-400 transition ease-in duration-150" href={PostsAction}>Posts</a>
+        <!--<ul class="navbar-nav mr-auto">-->
+            <!--<li class={classes ["nav-item", ("active", isActivePath ("/Posts" :: Text))]}>-->
+                <!--<a class="nav-link" href={PostsAction}>Posts</a>-->
+            <!--</li>-->
+            <!--<li class={classes ["nav-item", ("active", isActivePath ("/NewPost" :: Text))]}>-->
+                <!--<a class="nav-link" href={NewPostAction}>New Post</a>-->
+            <!--</li>-->
+        <!--</ul>-->
+            
+    </div>
+
+    <!--right side -->
+    <div>
+        {userSessionButton}
+    </div>
 </nav>    
 |]
     --where userSessionButton = logoutButtonHtml
@@ -53,15 +66,16 @@ navbar = [hsx|
 
 logoutButtonHtml :: User -> Html
 logoutButtonHtml user = [hsx|
-    <a class="ml-auto mr-3" href={ShowUserAction (get #id user)}>Welcome, {get #firstName user}</a>
-    <a class="btn btn-outline-primary mr-0 js-delete js-delete-no-confirm"
+    <a class="inline-block ml-auto mr-3 text-red-50 hover:text-red-400 transition ease-in duration-100" href={ShowUserAction (get #id user)}>Welcome, {get #firstName user}</a>
+    <a class="inline-block mr-0 text-red-100 bg-red-500 px-4 py-2 rounded hover:bg-red-400 hover:text-red-50 transition ease-in duration-100 js-delete js-delete-no-confirm"
        href={DeleteSessionAction}>Logout</a>
 |]
 
 loginButtonHtml :: Html
 loginButtonHtml = [hsx|
-    <a class="mr-3 ml-auto" href={NewUserAction}>Sign Up</a>
-    <a class="btn btn-primary mr-0" href={NewSessionAction}>Login</a>
+    <a class="mr-3 ml-auto text-red-50 hover:text-red-400 transition ease-in duration-100" href={NewUserAction}>Sign Up</a>
+    <a class="inline-block mr-0 text-red-100 bg-red-500 px-4 py-2 rounded hover:bg-red-400 hover:text-red-50 transition ease-in duration-100"
+    href={NewSessionAction}>Login</a>
 |]
 
 stylesheets :: Html
