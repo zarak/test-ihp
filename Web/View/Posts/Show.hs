@@ -19,6 +19,11 @@ instance View ShowView where
         <h1>{get #title post}</h1>
         <p>Author: {get #firstName author <> " " <> get #lastName author}</p>
         <p>{get #createdAt post |> timeAgo}</p>
+
+        <span class="text-green-500">
+            <a href={NewVoteAction}>Upvote</a>
+        </span>
+
         <div>{get #body post |> renderMarkdown}</div>
 
         <a href={NewCommentAction (get #id post)}>Add Comment</a>

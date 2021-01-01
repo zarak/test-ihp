@@ -53,7 +53,7 @@ data UsersController
 
 data VotesController
     = VotesAction
-    | NewVoteAction
+    | NewVoteAction { postId :: !(Id Post), userId :: !(Id User) }
     | ShowVoteAction { voteId :: !(Id Vote) }
     | CreateVoteAction
     | EditVoteAction { voteId :: !(Id Vote) }
