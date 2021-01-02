@@ -22,10 +22,12 @@ defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
     <title>App</title>
 </head>
 <body>
-    {navbar}
-    <div class="container mt-4 mx-auto">
-        {renderFlashMessages}
-        {inner}
+    <div class="bg-gray-100 overflow-x-hidden">
+        {navbar}
+        <div class="px-6 py-8">
+            {renderFlashMessages}
+            {inner}
+        </div>
     </div>
 </body>
 |]
