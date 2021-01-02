@@ -24,7 +24,7 @@ defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
 <body>
     <div class="bg-gray-100 overflow-x-hidden">
         {navbar}
-        <div class="px-6 py-8">
+        <div class="px-6 py-8 min-h-screen">
             {renderFlashMessages}
             {inner}
         </div>
