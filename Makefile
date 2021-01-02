@@ -4,7 +4,7 @@ else
 IHP = $(shell dirname $$(which RunDevServer))/../lib/IHP
 endif
 
-CSS_FILES += ${IHP}/static/vendor/bootstrap.min.css
+#CSS_FILES += ${IHP}/static/vendor/bootstrap.min.css
 CSS_FILES += ${IHP}/static/vendor/flatpickr.min.css
 CSS_FILES += static/app.css
 
