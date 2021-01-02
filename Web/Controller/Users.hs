@@ -47,13 +47,13 @@ instance Controller UsersController where
                 Left user -> render NewView { .. } 
                 Right user -> do
                     hashed <- hashPassword (get #passwordHash user)
-                    --let token = tshow "thisisatesttoken"
+                    let token = tshow "thisisatesttoken"
                     user <- user 
                         |> set #passwordHash hashed
-                        -- |> set #token token
+                        |> set #token token
                         |> createRecord
-                    -- sendMail ConfirmMail { user }
-                    -- setSuccessMessage "Please click the confirmation link in the email that has been sent to you"
+                    sendMail ConfirmMail { user }
+                    setSuccessMessage "Please click the confirmation link in the email that has been sent to you"
                     redirectTo NewSessionAction
 
     action DeleteUserAction { userId } = do
