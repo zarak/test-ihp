@@ -13,7 +13,6 @@ let
             hlint
             p.ihp
             mmark
-            smtp-mail
         ];
         otherDeps = p: with p; [
             # Native dependencies, e.g. imagemagick
