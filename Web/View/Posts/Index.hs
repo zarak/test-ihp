@@ -5,8 +5,14 @@ data IndexView = IndexView { posts :: [Post] }
 
 instance View IndexView where
     html IndexView { .. } = [hsx|
-<div class="flex justify-between container mx-auto">
+<div class="flex-row justify-between container mx-auto">
         <!--<h1>Index <a href={pathTo NewPostAction} class="btn btn-primary ml-4">+ New</a></h1>-->
+
+        <!--for testing only-->
+        <div>
+            <a href={NewPostAction}>create new post</a>            
+        </div>
+
         <div class="w-full lg:w-8/12">
             {forEach posts renderPost2}
         </div>
