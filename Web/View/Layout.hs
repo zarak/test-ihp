@@ -42,7 +42,7 @@ navbar = [hsx|
         src="https://cdn3.iconfinder.com/data/icons/complete-set-icons/512/twitter2512x512.png"
         alt="logo" width="50" class="mr-2"/>
         
-        <a class="inline-block p-3 text-red-50 hover:text-red-400 transition ease-in duration-150" href="/">Callout Bot</a>
+        <!--<a class="inline-block p-3 text-red-50 hover:text-red-400 transition ease-in duration-150" href="/">Callout Bot</a>-->
         <a class="inline-block p-3 text-red-50 hover:text-red-400 transition ease-in duration-150" href={PostsAction}>Posts</a>
         <!--<ul class="navbar-nav mr-auto">-->
             <!--<li class={classes ["nav-item", ("active", isActivePath ("/Posts" :: Text))]}>-->
@@ -66,6 +66,31 @@ navbar = [hsx|
                                 Just user -> logoutButtonHtml user
                                 Nothing -> loginButtonHtml
 
+navbar2 :: Html
+navbar2 = [hsx|
+    <nav class="bg-gray-700 px-6 py-4 shadow">
+        <div class="flex flex-col container mx-auto md:flex-row md:items-center md:justify-between">
+            <div class="flex justify-between items-center">
+                <div>
+                    <a href="#" class="text-red-50 text-xl font-bold md:text-2xl">Brand</a>
+                </div>
+                <div>
+                    <button type="button" class="block text-gray-800 hover:text-gray-600 focus:text-gray-600 focus:outline-none md:hidden">
+                        <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current">
+                            <path d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="md:flex flex-col md:flex-row md:-mx-4 hidden">
+                <a href="#" class="my-1 text-red-50 hover:text-red-500 md:mx-4 md:my-0">Home</a>
+                <a href="#" class="my-1 text-red-50 hover:text-red-500 md:mx-4 md:my-0">Blog</a>
+                <a href="#" class="my-1 text-red-50 hover:text-red-500 md:mx-4 md:my-0">About us</a>
+            </div>
+        </div>
+    </nav>   
+|]
 
 footer :: Html
 footer = [hsx|
@@ -97,7 +122,7 @@ footer = [hsx|
 
 logoutButtonHtml :: User -> Html
 logoutButtonHtml user = [hsx|
-    <a class="inline-block ml-auto mr-3 text-red-50 hover:text-red-400 transition ease-in duration-100" href={ShowUserAction (get #id user)}>Welcome, {get #firstName user}</a>
+    <a class="hidden md:inline-block ml-auto mr-3 text-red-50 hover:text-red-400 transition ease-in duration-100" href={ShowUserAction (get #id user)}>Welcome, {get #firstName user}</a>
     <a class="inline-block mr-0 text-red-100 bg-red-500 px-4 py-2 rounded hover:bg-red-400 hover:text-red-50 transition ease-in duration-100 js-delete js-delete-no-confirm"
        href={DeleteSessionAction}>Logout</a>
 |]
